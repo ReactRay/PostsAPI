@@ -62,5 +62,19 @@ namespace postsAPI.Controllers
             return Ok(postDto);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(string id)
+        {
+            var deletedPost = await repo.deletePost(id);
+
+            if (deletedPost == null)
+                return NotFound("Post not found");
+
+            var postDto = mapper.Map<PostDto>(deletedPost);
+
+            return Ok(postDto);
+        }
+
+
     }
 }

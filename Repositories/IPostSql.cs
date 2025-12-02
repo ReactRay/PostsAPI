@@ -23,6 +23,22 @@ namespace postsAPI.Repositories
             
         }
 
+        public async Task<Post?> deletePostAsync(string Id)
+        {
+            var domainPost = await context.Posts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id.ToString() == Id);
+
+            if (domainPost == null) return null;
+
+            context.Comments.RemoveRange(domainPost.Comments);
+
+            context.Posts.Remove(domainPost);
+
+            await context.SaveChangesAsync();
+
+            return domainPost;
+           
+        }
+
         public async Task<List<Post>> getAllAsync()
         {
             var posts = await context.Posts.Include(p => p.User).Include(p => p.Comments).ToListAsync();
