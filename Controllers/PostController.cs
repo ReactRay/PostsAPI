@@ -25,9 +25,7 @@ namespace postsAPI.Controllers
         public async Task<IActionResult> GetAllPosts()
         {
             var domainPosts = await repo.getAllAsync();
-            var postsDto = mapper.Map<List<PostDto>>(domainPosts);
-            return Ok(postsDto);
-
+            return Ok(mapper.Map<List<PostDto>>(domainPosts));
         }
 
         [HttpGet]
@@ -36,8 +34,7 @@ namespace postsAPI.Controllers
         {
             var domainPost = await repo.getPostById(id);
             if (domainPost == null) return NotFound("not found");
-            var postDto = mapper.Map<PostDto>(domainPost);
-            return Ok(postDto);
+            return Ok(mapper.Map<PostDto>(domainPost));
         }
 
 
@@ -47,7 +44,6 @@ namespace postsAPI.Controllers
             var domainPost = mapper.Map<Post>(post);
             await repo.createPostAsync(domainPost);
             return Ok($"post created {domainPost}");
-
         }
 
         [HttpPut]
@@ -55,24 +51,18 @@ namespace postsAPI.Controllers
         public async Task<IActionResult> UpdatePost([FromBody] UpdatePostDto post,string id)
         {
             var domainPost = mapper.Map<Post>(post);
-
             domainPost = await repo.updatePost(domainPost, id);
             if(domainPost == null) return NotFound("not found");
-            var postDto = mapper.Map<PostDto>(domainPost);
-            return Ok(postDto);
+            return Ok(mapper.Map<PostDto>(domainPost));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(string id)
         {
-            var deletedPost = await repo.deletePost(id);
-
+            var deletedPost = await repo.deletePostAsync(id);
             if (deletedPost == null)
                 return NotFound("Post not found");
-
-            var postDto = mapper.Map<PostDto>(deletedPost);
-
-            return Ok(postDto);
+            return Ok(mapper.Map<PostDto>(deletedPost));
         }
 
 
