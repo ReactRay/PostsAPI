@@ -1,4 +1,4 @@
-﻿namespace postsAPI.Models
+﻿namespace postsAPI.Models.DTOs
 {
     public class CreatePostDto
     {
