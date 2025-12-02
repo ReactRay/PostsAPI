@@ -36,5 +36,17 @@ namespace postsAPI.Repositories
             return post;
 
         }
+
+        public async Task<Post?> updatePost(Post Post, string Id)
+        {
+            var postToUpdate = await context.Posts.FindAsync(Id);
+
+            if (postToUpdate == null) return null;
+
+            postToUpdate.Title = Post.Title;
+            postToUpdate.Body = Post.Body;
+
+            return postToUpdate;
+        }
     }
 }

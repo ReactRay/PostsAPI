@@ -25,12 +25,9 @@ namespace postsAPI.Controllers
         public async Task<IActionResult> GetAllPosts()
         {
             var domainPosts = await repo.getAllAsync();
-
             var postsDto = mapper.Map<List<PostDto>>(domainPosts);
-
             return Ok(postsDto);
 
-         
         }
 
         [HttpGet]
@@ -39,9 +36,7 @@ namespace postsAPI.Controllers
         {
             var domainPost = await repo.getPostById(id);
             if (domainPost == null) return NotFound("not found");
-
             var postDto = mapper.Map<PostDto>(domainPost);
-
             return Ok(postDto);
         }
 
@@ -49,14 +44,23 @@ namespace postsAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto post)
         {
-
             var domainPost = mapper.Map<Post>(post);
-
             await repo.createPostAsync(domainPost);
-
             return Ok($"post created {domainPost}");
 
-          
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdatePost([FromBody] UpdatePostDto post,string id)
+        {
+            var domainPost = mapper.Map<Post>(post);
+
+            domainPost = await repo.updatePost(domainPost, id);
+            if(domainPost == null) return NotFound("not found");
+            var postDto = mapper.Map<PostDto>(domainPost);
+            return Ok(postDto);
+        }
+
     }
 }

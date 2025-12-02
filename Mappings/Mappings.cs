@@ -9,6 +9,7 @@ public class Mappings : Profile
         // DTO → Domain
         CreateMap<CreatePostDto, Post>();
         CreateMap<CreateUserDto, ApplicationUser>();
+        CreateMap<UpdatePostDto, Post>();
 
         // ApplicationUser → UserDto
         CreateMap<ApplicationUser, UserDto>();
