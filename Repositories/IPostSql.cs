@@ -39,12 +39,11 @@ namespace postsAPI.Repositories
 
         public async Task<Post?> updatePost(Post Post, string Id)
         {
-            var postToUpdate = await context.Posts.FindAsync(Id);
-
+            var postToUpdate = await context.Posts.FirstOrDefaultAsync(p => p.Id.ToString() == Id);
             if (postToUpdate == null) return null;
-
             postToUpdate.Title = Post.Title;
             postToUpdate.Body = Post.Body;
+            await context.SaveChangesAsync();
 
             return postToUpdate;
         }
