@@ -24,9 +24,13 @@ namespace postsAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPosts()
         {
-            var posts = await repo.getAllAsync();
+            var domainPosts = await repo.getAllAsync();
 
-            return Ok(posts);
+            var postsDto = mapper.Map<List<PostDto>>(domainPosts);
+
+            return Ok(postsDto);
+
+         
         }
 
 

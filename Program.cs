@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using postsAPI.Data;
-using postsAPI.Mappings;
+
 using postsAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //mapper 
-builder.Services.AddAutoMapper(typeof(Mappings));
+builder.Services.AddAutoMapper(profileAssemblyMarkerTypes: typeof(Mappings));
 
 
 builder.Services.AddScoped<IPostRepository, IPostSql>();
