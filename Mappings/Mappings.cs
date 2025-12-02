@@ -12,7 +12,10 @@ public class Mappings : Profile
         CreateMap<UpdatePostDto, Post>();
 
         // ApplicationUser → UserDto
-        CreateMap<ApplicationUser, UserDto>();
+        CreateMap<ApplicationUser, UserDto>()
+    .ForMember(dest => dest.Posts, opt => opt.MapFrom(src => src.Posts))
+    .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments));
+
 
         // Comment → CommentDto
         CreateMap<Comment, CommentDto>()

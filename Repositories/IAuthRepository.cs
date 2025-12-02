@@ -6,5 +6,6 @@ namespace postsAPI.Repositories
     {
 
         public Task<ApplicationUser> createUserAsync(ApplicationUser user);
+        public Task<List<ApplicationUser>> getAllUsersAsync();
     }
 }

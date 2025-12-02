@@ -1,4 +1,5 @@
-﻿using postsAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using postsAPI.Data;
 using postsAPI.Models.Domain;
 
 namespace postsAPI.Repositories
@@ -17,6 +18,13 @@ namespace postsAPI.Repositories
             await _context.SaveChangesAsync();
             return user;
 
+        }
+
+        public async Task<List<ApplicationUser>> getAllUsersAsync()
+        {
+            var users = await _context.Users.Include(p => p.Comments).Include(p => p.Posts).ToListAsync();
+
+            return users;
         }
     }
 }

@@ -18,23 +18,26 @@ namespace postsAPI.Controllers
         {
             this.mapper = mapper;
             this._repo = repo;
-
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _repo.getAllUsersAsync();
+
+            var usersDto = mapper.Map<List<UserDto>>(users);
+
+            return Ok(usersDto);
+        }
+
         [HttpPost]
         [Route("/register")]
-        
         public async Task<IActionResult> register (CreateUserDto user)
         {
             var domainUser = mapper.Map<ApplicationUser>(user);
-
             domainUser = await _repo.createUserAsync(domainUser);
-
-
             return Ok(domainUser);
-
-          
         }
     }
 }
