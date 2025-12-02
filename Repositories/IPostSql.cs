@@ -28,5 +28,13 @@ namespace postsAPI.Repositories
             var posts = await context.Posts.Include(p => p.User).Include(p => p.Comments).ToListAsync();
             return posts;
         }
+
+        public async Task<Post?> getPostById(string Id)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id.ToString() == Id);
+
+            return post;
+
+        }
     }
 }

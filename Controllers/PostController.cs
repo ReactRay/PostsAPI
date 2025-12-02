@@ -33,6 +33,18 @@ namespace postsAPI.Controllers
          
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetPostById(string id)
+        {
+            var domainPost = await repo.getPostById(id);
+            if (domainPost == null) return NotFound("not found");
+
+            var postDto = mapper.Map<PostDto>(domainPost);
+
+            return Ok(postDto);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto post)
