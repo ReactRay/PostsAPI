@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//mapper 
+//mapper di 
 builder.Services.AddAutoMapper(profileAssemblyMarkerTypes: typeof(Mappings));
 
 

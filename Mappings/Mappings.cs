@@ -21,6 +21,9 @@ public class Mappings : Profile
         CreateMap<Comment, CommentDto>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
 
+        CreateMap<CreateCommentDto, Comment>().ReverseMap();
+
+
         // Post → PostDto
         CreateMap<Post, PostDto>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
