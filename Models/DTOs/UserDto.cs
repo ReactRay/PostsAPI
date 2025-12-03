@@ -6,7 +6,7 @@
         public string UserName { get; set; }
         public string Email { get; set; }
 
-        public List<CommentDto> Comments;
-        public List<PostDto> Posts;
+        public List<PostDto> Posts { get; set; } = new();    
+        public List<CommentDto> Comments { get; set; } = new(); 
     }
 }
