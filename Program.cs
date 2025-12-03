@@ -22,6 +22,7 @@ builder.Services.AddAutoMapper(profileAssemblyMarkerTypes: typeof(Mappings));
 
 builder.Services.AddScoped<IPostRepository, IPostSql>();
 builder.Services.AddScoped<IAuthRepository,SQLauthRepository>();
+builder.Services.AddScoped<ICommentRepository, SQLcommentRepository>();
 
 
 var app = builder.Build();
