@@ -1,50 +1,29 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using postsAPI.Models.Domain;
 using postsAPI.Models.DTOs;
+using postsAPI.Permissions;
 using postsAPI.Repositories;
+using postsAPI.Services.Comments;
 
 namespace postsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentController : ControllerBase
+    [Authorize]
+    public class CommentController(ICommentService _commentService) : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly ICommentRepository repo;
-
-        public CommentController(IMapper mapper ,ICommentRepository repo)
-        {
-            this.mapper = mapper;
-            this.repo = repo;
-        }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto comment)
+        [HasPermission(AppPermissions.CreateComment)]
+        public async Task<IActionResult> createComment([FromBody] CreateCommentDto dto)
         {
-            var domainComment = mapper.Map<Comment>(comment);
-            
-            domainComment = await repo.CreateCommentAsync(domainComment);
-
-            if (domainComment == null) return BadRequest("something went wrong");
-
-            return Ok(mapper.Map<CommentDto>(domainComment));
+            return Ok(await _commentService.createComment(dto, User));
         }
-
-        [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteComment(Guid id)
-        {
-            var commentToDelete = await repo.DeleteCommentAsync(id);
-
-            if (commentToDelete == null) return NotFound("comment not found");
-
-            return Ok(mapper.Map<CommentDto>(commentToDelete));
-
-        }
-
 
     }
 

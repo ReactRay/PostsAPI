@@ -42,7 +42,7 @@ namespace postsAPI.Repositories
 
         public async Task<List<Post>> getAllAsync()
         {
-            var posts = await context.Posts.Include(p => p.User).Include(p => p.Comments).ToListAsync();
+            var posts = await context.Posts.Include(p => p.User).Include(p => p.Comments).ThenInclude(p => p.User).ToListAsync();
             return posts;
         }
 

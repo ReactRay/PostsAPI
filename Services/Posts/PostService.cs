@@ -12,23 +12,16 @@ namespace postsAPI.Services.Posts
     {
         public async Task<PostDto> createPostAsync(CreatePostDto dto ,ClaimsPrincipal user)
         {
-
-            var userId =  _userManager.GetUserId(user);
-
+            var userId = _userManager.GetUserId(user);
             if (userId == null)
-                throw new UnauthorizedAccessException("User not authenticated");
+                throw new UnauthorizedAccessException();
 
             var domainPost = _mapper.Map<Post>(dto);
-
             domainPost.UserId = userId;
 
-            domainPost.User = await _userManager.FindByIdAsync(userId);
-         
-
-
             domainPost = await _postRepo.createPostAsync(domainPost);
+            return _mapper.Map<PostDto>(domainPost);
 
-           return _mapper.Map<PostDto>(domainPost);
 
         }
 

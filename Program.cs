@@ -8,6 +8,7 @@ using postsAPI.Permissions;
 using postsAPI.Repositories;
 using postsAPI.Services;
 using postsAPI.Services.Auth;
+using postsAPI.Services.Comments;
 using postsAPI.Services.Jwt;
 using postsAPI.Services.Posts;
 using System.Security.Claims;
@@ -65,6 +66,7 @@ builder.Services.AddScoped<ICommentRepository, SQLcommentRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<ICommentService,CommentService>();
 
 builder.Services.AddAuthorization(options =>
 {

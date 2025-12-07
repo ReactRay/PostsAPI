@@ -25,7 +25,6 @@ namespace postsAPI.Services.Auth
 
             var userDto = _mapper.Map<UserDto>(user);
 
-            Console.WriteLine("testing............!");
 
             return new UserResponseDto
             {

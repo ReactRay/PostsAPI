@@ -1,27 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using postsAPI.Data;
 using postsAPI.Models.Domain;
+using System.Security.Claims;
 
 namespace postsAPI.Repositories
 {
-    public class SQLcommentRepository : ICommentRepository
+    public class SQLcommentRepository(AppDbContext _context,UserManager<ApplicationUser> _userManager) : ICommentRepository
     {
-        private readonly AppDbContext _context;
-
-        public SQLcommentRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+    
 
 
 
-        public async Task<Comment?> CreateCommentAsync(Comment comment)
+        public async Task<Comment?> CreateCommentAsync(Comment comment ,ClaimsPrincipal user)
         {
             if (!await _context.Posts.AnyAsync(p => p.Id == comment.PostId))
                 return null;
 
             if (!await _context.Users.AnyAsync(p => p.Id == comment.UserId))
                 return null;
+
+            var userId = _userManager.GetUserId(user);
+
+            if (comment.UserId != userId) return null;
 
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
