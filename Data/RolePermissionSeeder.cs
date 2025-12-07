@@ -15,16 +15,16 @@ namespace postsAPI.Data
             // 2️⃣ Assign permissions to rolesz
             await AddPermissions(roleManager, posterRole, new[]
             {
-                Permissions.Permissions.CreatePost,
-                Permissions.Permissions.EditPost,
-                Permissions.Permissions.DeletePost
+                Permissions.AppPermissions.CreatePost,
+                Permissions.AppPermissions.EditPost,
+                Permissions.AppPermissions.DeletePost
             });
 
             await AddPermissions(roleManager, commenterRole, new[]
             {
-               Permissions.Permissions.CreateComment,
-               Permissions. Permissions.EditComment,
-               Permissions. Permissions.DeleteComment
+               Permissions.AppPermissions.CreateComment,
+               Permissions. AppPermissions.EditComment,
+               Permissions. AppPermissions.DeleteComment
             });
         }
 

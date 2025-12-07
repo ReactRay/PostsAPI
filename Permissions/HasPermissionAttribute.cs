@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
-namespace postsAPI.Permissions
+public class HasPermissionAttribute : AuthorizeAttribute
 {
-    public class HasPermissionAttribute : AuthorizeAttribute
+    public HasPermissionAttribute(string permission)
     {
-        public HasPermissionAttribute(string permission)
-        {
-            Policy = permission;
-        }
+        Policy = permission;
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme;
     }
 }

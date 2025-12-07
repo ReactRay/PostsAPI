@@ -1,6 +1,6 @@
 ﻿namespace postsAPI.Permissions
 {
-    public static class Permissions
+    public static class AppPermissions
     {
         // POSTS
         public const string CreatePost = "Posts.Create";

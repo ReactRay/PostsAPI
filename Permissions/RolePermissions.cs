@@ -9,18 +9,18 @@
                 "Poster",
                 new[]
                 {
-                    Permissions.CreatePost,
-                    Permissions.EditPost,
-                    Permissions.DeletePost
+                    AppPermissions.CreatePost,
+                    AppPermissions.EditPost,
+                    AppPermissions.DeletePost
                 }
             },
             {
                 "Commenter",
                 new[]
                 {
-                    Permissions.CreateComment,
-                    Permissions.EditComment,
-                    Permissions.DeleteComment
+                    AppPermissions.CreateComment,
+                    AppPermissions.EditComment,
+                    AppPermissions.DeleteComment
                 }
             }
         };
