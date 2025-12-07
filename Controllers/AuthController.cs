@@ -13,12 +13,18 @@ namespace postsAPI.Controllers
     public class AuthController(IMapper _mapper, IAuthService _authService) : ControllerBase
     {
 
-        [HttpPost]
-        public async Task<IActionResult> register(CreateUserDto userToCreate)
+        [HttpPost("register")]
+        public async Task<IActionResult> register([FromBody]CreateUserDto userToCreate)
         {
             return Ok(await _authService.Register(userToCreate));
         }
 
+
+        [HttpPost("login")]
+        public async Task<IActionResult> login([FromBody]LoginDto login)
+        {
+            return Ok(await _authService.Login(login));
+        }
         
 
 

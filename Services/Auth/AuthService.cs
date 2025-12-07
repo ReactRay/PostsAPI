@@ -15,11 +15,11 @@ namespace postsAPI.Services.Auth
 
 
 
-        public async Task<UserResponseDto> Login(string email, string password)
+        public async Task<UserResponseDto> Login(LoginDto userInfo)
         {
-            var user = await _UserManager.FindByEmailAsync(email);
+            var user = await _UserManager.FindByEmailAsync(userInfo.Email);
 
-            if (user == null || !await _UserManager.CheckPasswordAsync(user, password))
+            if (user == null || !await _UserManager.CheckPasswordAsync(user, userInfo.Password))
             {
                 throw new UnauthorizedAccessException("Invalid credentials");
             }

@@ -12,7 +12,7 @@ namespace postsAPI.Data
             var posterRole = await EnsureRole(roleManager, "Poster");
             var commenterRole = await EnsureRole(roleManager, "Commenter");
 
-            // 2️⃣ Assign permissions to roles
+            // 2️⃣ Assign permissions to rolesz
             await AddPermissions(roleManager, posterRole, new[]
             {
                 Permissions.Permissions.CreatePost,
