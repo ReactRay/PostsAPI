@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using postsAPI.Data;
 using postsAPI.Models.Domain;
+using postsAPI.Models.DTOs;
 
 namespace postsAPI.Repositories
 {
@@ -47,21 +48,25 @@ namespace postsAPI.Repositories
 
         public async Task<Post?> getPostById(string Id)
         {
-            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id.ToString() == Id);
+            var domainPost = await context.Posts.Include(p => p.User).Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id.ToString() == Id);
 
-            return post;
-
+            return domainPost;
         }
 
-        public async Task<Post?> updatePost(Post Post, string Id)
+        public async Task<Post?> updatePostAsync(UpdatePostDto Post, string Id, string userId)
         {
-            var postToUpdate = await context.Posts.FirstOrDefaultAsync(p => p.Id.ToString() == Id);
-            if (postToUpdate == null) return null;
-            postToUpdate.Title = Post.Title;
-            postToUpdate.Body = Post.Body;
-            await context.SaveChangesAsync();
+            var post = await context.Posts.FirstOrDefaultAsync(p => p.Id.ToString() == Id);
+            if (post == null) return null;
 
-            return postToUpdate;
+            if (post.UserId != userId.ToString()) return null;
+
+            post.Title =Post.Title;
+            post.Body = Post.Body;
+
+            await context.SaveChangesAsync();
+            return post;
         }
+
+       
     }
 }

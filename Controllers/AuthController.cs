@@ -10,7 +10,7 @@ namespace postsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(IMapper _mapper, IAuthService _authService) : ControllerBase
+    public class AuthController( IAuthService _authService) : ControllerBase
     {
 
         [HttpPost("register")]

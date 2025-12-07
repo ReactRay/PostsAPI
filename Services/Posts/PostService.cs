@@ -31,5 +31,40 @@ namespace postsAPI.Services.Posts
            return _mapper.Map<PostDto>(domainPost);
 
         }
+
+        public async Task<List<PostDto>> getAllPostsAsync()
+        {
+            var posts = await _postRepo.getAllAsync();
+
+            return _mapper.Map<List<PostDto>>(posts);
+
+          
+        }
+
+        public async Task<PostDto> getPostById(string id)
+        {
+            var domainPost = await _postRepo.getPostById(id);
+
+            if (domainPost == null) throw new KeyNotFoundException("Post not found");
+
+
+            return _mapper.Map<PostDto>(domainPost);
+        }
+
+        public async Task<PostDto> UpdatePostAsync(UpdatePostDto updates , string id, ClaimsPrincipal user)
+        {
+            var userId = _userManager.GetUserId(user).ToString();
+            if (userId == null)
+                throw new UnauthorizedAccessException("User not authenticated");
+
+            var post = await _postRepo.updatePostAsync(updates,id,userId);
+
+            if (post == null)
+                throw new UnauthorizedAccessException("Not owner or post not found");
+
+            return _mapper.Map<PostDto>(post);
+        }
+
+
     }
 }

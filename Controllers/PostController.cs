@@ -17,16 +17,33 @@ namespace postsAPI.Controllers
     public class PostController(IPostService _postService) : ControllerBase
     {
 
-
-
-
-
         [HttpPost]
-     [HasPermission(AppPermissions.CreatePost)]
+        [HasPermission(AppPermissions.CreatePost)]
         public async Task<IActionResult> createPost([FromBody]CreatePostDto dto)
         {
 
             return Ok(await _postService.createPostAsync(dto, User));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> getAllposts()
+        {
+            return Ok(await _postService.getAllPostsAsync());
+        }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> getPostById(string id)
+        {
+            return Ok(await _postService.getPostById(id));
+        }
+
+        [HttpPut("{id}")]
+        [HasPermission(AppPermissions.EditPost)]
+        public async Task<IActionResult> updatePost([FromBody] UpdatePostDto updates, string id)
+        {
+            return Ok(await _postService.UpdatePostAsync(updates,id,User));
         }
 
     }

@@ -6,5 +6,9 @@ namespace postsAPI.Services.Posts
     public interface IPostService
     {
         public Task<PostDto> createPostAsync(CreatePostDto dto ,ClaimsPrincipal user);
+
+        public Task<List<PostDto>> getAllPostsAsync();
+
+        public Task<PostDto> UpdatePostAsync(UpdatePostDto updates ,string id,ClaimsPrincipal user);
     }
 }
