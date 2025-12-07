@@ -4,40 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 using postsAPI.Models.Domain;
 using postsAPI.Models.DTOs;
 using postsAPI.Repositories;
+using postsAPI.Services.Auth;
 
 namespace postsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(IMapper _mapper, IAuthService _authService) : ControllerBase
     {
-        private readonly IMapper mapper;
-        private readonly IAuthRepository _repo;
-
-        public AuthController(IMapper mapper ,IAuthRepository repo)
-        {
-            this.mapper = mapper;
-            this._repo = repo;
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var users = await _repo.getAllUsersAsync();
-
-            var usersDto = mapper.Map<List<UserDto>>(users);
-
-            return Ok(usersDto);
-        }
 
         [HttpPost]
-        [Route("/register")]
-        public async Task<IActionResult> register (CreateUserDto user)
+        public async Task<IActionResult> register(CreateUserDto userToCreate)
         {
-            var domainUser = mapper.Map<ApplicationUser>(user);
-            domainUser = await _repo.createUserAsync(domainUser);
-            return Ok(domainUser);
+            return Ok(await _authService.Register(userToCreate));
         }
+
+        
+
+
+
     }
 }
