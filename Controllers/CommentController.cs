@@ -25,6 +25,15 @@ namespace postsAPI.Controllers
             return Ok(await _commentService.createComment(dto, User));
         }
 
+
+        [HttpDelete("{id:Guid}")]
+        [HasPermission(AppPermissions.DeleteComment)]
+        public async Task<IActionResult> deleteComment(Guid id)
+        {
+            return Ok(await _commentService.deleteCommentAsync(id, User));
+        }
+
+
     }
 
 

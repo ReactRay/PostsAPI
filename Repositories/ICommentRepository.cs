@@ -7,7 +7,7 @@ namespace postsAPI.Repositories
     {
         public  Task<Comment?> CreateCommentAsync(Comment comment, ClaimsPrincipal user);
 
-        public Task<Comment?> DeleteCommentAsync(Guid id);
+        public Task<Comment?> DeleteCommentAsync(Guid id , Guid userId);
 
 
 

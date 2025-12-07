@@ -30,9 +30,11 @@ namespace postsAPI.Repositories
             return comment;
         }
 
-        public async Task<Comment?> DeleteCommentAsync(Guid id)
+        public async Task<Comment?> DeleteCommentAsync(Guid id ,Guid userId)
         {
             var CommentToDelete = await _context.Comments.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (CommentToDelete.UserId != userId.ToString()) return null;
 
             if (CommentToDelete == null) return null;
 
