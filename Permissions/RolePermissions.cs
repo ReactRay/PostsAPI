@@ -11,7 +11,8 @@
                 {
                     AppPermissions.CreatePost,
                     AppPermissions.EditPost,
-                    AppPermissions.DeletePost
+                    AppPermissions.DeletePost,
+                    AppPermissions.GetPost
                 }
             },
             {
@@ -20,7 +21,8 @@
                 {
                     AppPermissions.CreateComment,
                     AppPermissions.EditComment,
-                    AppPermissions.DeleteComment
+                    AppPermissions.DeleteComment,
+                    AppPermissions.GetComment
                 }
             }
         };

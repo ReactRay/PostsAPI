@@ -26,14 +26,14 @@ namespace postsAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [HasPermission(AppPermissions.GetPost)]
         public async Task<IActionResult> getAllposts()
         {
             return Ok(await _postService.getAllPostsAsync());
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [HasPermission(AppPermissions.GetPost)]
         public async Task<IActionResult> getPostById(string id)
         {
             return Ok(await _postService.getPostById(id));
@@ -44,6 +44,13 @@ namespace postsAPI.Controllers
         public async Task<IActionResult> updatePost([FromBody] UpdatePostDto updates, string id)
         {
             return Ok(await _postService.UpdatePostAsync(updates,id,User));
+        }
+
+        [HttpDelete("{id:Guid}")]
+        [HasPermission(AppPermissions.DeletePost)]
+        public async Task<IActionResult> deletePost(Guid id)
+        {
+            return Ok(_postService.deletePost(id, User));
         }
 
     }

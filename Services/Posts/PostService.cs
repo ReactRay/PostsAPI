@@ -32,6 +32,18 @@ namespace postsAPI.Services.Posts
 
         }
 
+        public async Task<PostDto> deletePost(Guid id ,ClaimsPrincipal user)
+        {
+
+            var userId = _userManager.GetUserId(user);
+
+            var postToDelete = await _postRepo.deletePostAsync(id.ToString() ,userId);
+
+            if (postToDelete == null) throw new KeyNotFoundException("post not found");
+
+            return _mapper.Map<PostDto>(postToDelete);
+        }
+
         public async Task<List<PostDto>> getAllPostsAsync()
         {
             var posts = await _postRepo.getAllAsync();

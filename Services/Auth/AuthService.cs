@@ -11,9 +11,6 @@ namespace postsAPI.Services.Auth
         ,IJwtService _JwtService,IMapper _mapper)
         : IAuthService
     {
-       
-
-
 
         public async Task<UserResponseDto> Login(LoginDto userInfo)
         {
@@ -27,6 +24,8 @@ namespace postsAPI.Services.Auth
             var token = await _JwtService.CreateTokenAsync(user);
 
             var userDto = _mapper.Map<UserDto>(user);
+
+            Console.WriteLine("testing............!");
 
             return new UserResponseDto
             {

@@ -10,5 +10,10 @@ namespace postsAPI.Services.Posts
         public Task<List<PostDto>> getAllPostsAsync();
 
         public Task<PostDto> UpdatePostAsync(UpdatePostDto updates ,string id,ClaimsPrincipal user);
+
+        public Task<PostDto> getPostById(string id);
+
+
+        public Task<PostDto> deletePost(Guid id ,ClaimsPrincipal user);
     }
 }

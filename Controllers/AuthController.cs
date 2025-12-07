@@ -16,6 +16,7 @@ namespace postsAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> register([FromBody]CreateUserDto userToCreate)
         {
+            
             return Ok(await _authService.Register(userToCreate));
         }
 

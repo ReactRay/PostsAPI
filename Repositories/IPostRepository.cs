@@ -1,5 +1,6 @@
 ﻿using postsAPI.Models.Domain;
 using postsAPI.Models.DTOs;
+using System.Security.Claims;
 
 namespace postsAPI.Repositories
 {
@@ -10,6 +11,6 @@ namespace postsAPI.Repositories
         public Task<Post?> getPostById(string Id);
         public Task<Post?> updatePostAsync(UpdatePostDto Post ,string Id ,string userId);
 
-        public Task<Post?> deletePostAsync(string Id);
+        public Task<Post?> deletePostAsync(string Id, string userId);
     }
 }

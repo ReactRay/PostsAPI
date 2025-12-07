@@ -24,11 +24,11 @@ namespace postsAPI.Repositories
             
         }
 
-        public async Task<Post?> deletePostAsync(string Id)
+        public async Task<Post?> deletePostAsync(string Id,string userId)
         {
             var domainPost = await context.Posts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id.ToString() == Id);
 
-            if (domainPost == null) return null;
+            if (domainPost == null || domainPost.UserId != userId) return null;
 
             context.Comments.RemoveRange(domainPost.Comments);
 

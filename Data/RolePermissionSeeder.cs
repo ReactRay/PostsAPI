@@ -17,14 +17,17 @@ namespace postsAPI.Data
             {
                 Permissions.AppPermissions.CreatePost,
                 Permissions.AppPermissions.EditPost,
-                Permissions.AppPermissions.DeletePost
+                Permissions.AppPermissions.DeletePost,
+                Permissions.AppPermissions.GetPost,
+
             });
 
             await AddPermissions(roleManager, commenterRole, new[]
             {
                Permissions.AppPermissions.CreateComment,
                Permissions. AppPermissions.EditComment,
-               Permissions. AppPermissions.DeleteComment
+               Permissions. AppPermissions.DeleteComment,
+               Permissions.AppPermissions.GetComment,
             });
         }
 
